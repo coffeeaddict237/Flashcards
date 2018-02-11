@@ -44,10 +44,16 @@ public class MainActivity extends AppCompatActivity {
 
         generate();
 
+        Log.e("Testing","Question " + current);
+        Log.e("Testing","New question: " + no1 + " / " + no2 + " = " + answer);
+
+
         View.OnClickListener onClickListener = new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
+                Log.e("Testing","Question " + current);
+                Log.e("Testing","New question: " + no1 + " / " + no2 + " = " + answer);
                 //check if correct, update correct, toast if needed or generate new
                 String response = input.getText().toString();
                 if(current == 10) {
@@ -55,7 +61,11 @@ public class MainActivity extends AppCompatActivity {
                     Log.e("Testing","Finished");
                     if( response.equals(Integer.toString(answer))) {
                         correct++;
+                        current++;
                     }
+                    Toast.makeText(MainActivity.this, correct + " out of 10", Toast.LENGTH_SHORT).show();
+                }
+                else if(current > 10) {
                     Toast.makeText(MainActivity.this, correct + " out of 10", Toast.LENGTH_SHORT).show();
                 }
                 else {
@@ -75,6 +85,42 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(onClickListener);
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString("no1", tvOne.getText().toString());
+        outState.putString("no2", tvTwo.getText().toString());
+
+        outState.putInt("one", no1);
+        outState.putInt("two", no2);
+        outState.putInt("answer", answer);
+        outState.putInt("current", current);
+        outState.putInt("correct", correct);
+
+        outState.putString("response", input.getText().toString());
+
+        super.onSaveInstanceState(outState);
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+//        if (savedInstanceState != null) {
+        // tvTotal.setText(savedInstanceState.getString("total"));  //or in one karate-chop...
+
+        tvOne.setText(savedInstanceState.getString("no1"));
+        tvTwo.setText(savedInstanceState.getString("no2"));
+        input.setText(savedInstanceState.getString("response"));
+
+        no1 = savedInstanceState.getInt("one");
+        no2 = savedInstanceState.getInt("two");
+        answer = savedInstanceState.getInt("answer");
+
+        current = savedInstanceState.getInt("current");
+        correct = savedInstanceState.getInt("correct");
+
+    }
+
     public void generate() {
         current++;
         no2 = (int) (Math.random()*10)+1;
@@ -82,7 +128,6 @@ public class MainActivity extends AppCompatActivity {
         no1 = no2 * answer;
         tvOne.setText(Integer.toString(no1));
         tvTwo.setText(Integer.toString(no2));
-        Log.e("Testing","Question " + current);
-        Log.e("Testing","New question: " + no1 + " / " + no2 + " = " + answer);
+
     }
 }
