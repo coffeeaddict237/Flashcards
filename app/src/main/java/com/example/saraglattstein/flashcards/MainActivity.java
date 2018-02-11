@@ -28,10 +28,16 @@ public class MainActivity extends AppCompatActivity {
     private int correct = 0;
     private int current = 0;
 
+    private String userName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        userName = getIntent().getStringExtra("USER_NAME");
+        Toast toast=Toast.makeText(getApplicationContext(),"Welcome "+ userName, Toast.LENGTH_LONG);
+        toast.show();
 
         tvOne = findViewById(R.id.tvOne);
         tvTwo = findViewById(R.id.tvTwo);
