@@ -1,5 +1,9 @@
 package com.example.saraglattstein.flashcards;
 
+/*
+ * Done by saraglattstein
+ */
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,16 +32,20 @@ public class MainActivity extends AppCompatActivity {
     private int correct = 0;
     private int current = 0;
 
+    // Added from RichardHty
     private String userName;
+    //
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Added from RichardHty
         userName = getIntent().getStringExtra("USER_NAME");
         Toast toast=Toast.makeText(getApplicationContext(),"Welcome "+ userName, Toast.LENGTH_LONG);
         toast.show();
+        //
 
         tvOne = findViewById(R.id.tvOne);
         tvTwo = findViewById(R.id.tvTwo);
